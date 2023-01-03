@@ -1,10 +1,13 @@
 import type { NextPage } from 'next';
+import Layout from '../components/layouts/Layout';
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <h1>Cookie Master</h1>
-    </div>
+    <Layout>
+      <div>
+        <h1>Cookie Master</h1>
+      </div>
+    </Layout>
   );
 };
 

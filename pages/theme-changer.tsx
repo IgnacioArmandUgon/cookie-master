@@ -19,7 +19,7 @@ interface Props {
 }
 
 const ThemeChangerPage: FC<Props> = ({ theme }) => {
-  const [currentTheme, setCurrentTheme] = useState('light');
+  const [currentTheme, setCurrentTheme] = useState(theme);
 
   const onThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const theme = e.target.value;
@@ -74,7 +74,7 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
 
 //getServerSideProps convierte el componente de statica a Server side rendering
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { theme = 'light' } = ctx.req.cookies;
+  const { theme = 'dark' } = ctx.req.cookies;
 
   const validThemes = ['light', 'dark', 'custom'];
   return {

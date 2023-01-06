@@ -17,14 +17,10 @@ const themesMapping = {
 function MyApp({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState<themeType>('dark');
 
-  useEffect(() => {
-    const validThemes = ['light', 'dark', 'custom'];
-    const theme: themeType = validThemes.includes(
-      Cookies.get('theme') as themeType
-    )
-      ? (Cookies.get('theme') as themeType)
-      : 'dark';
+  const AnyComponent = Component as any;
 
+  useEffect(() => {
+    const theme: themeType = (Cookies.get('theme') || 'dark') as themeType;
     setTheme(theme);
     console.log({ theme });
     console.log(themesMapping[theme]);
@@ -33,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={themesMapping[theme]}>
       <CssBaseline />
-      <Component {...pageProps} />
+      <AnyComponent {...pageProps} />
     </ThemeProvider>
   );
 }

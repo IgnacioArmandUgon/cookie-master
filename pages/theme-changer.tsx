@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import Layout from '../components/layouts/Layout';
 import Cookies from 'js-cookie';
-import axios from 'axios';
 
 interface Props {
   theme: string;
@@ -30,14 +29,8 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
   useEffect(() => {
     localStorage.setItem('theme', currentTheme);
     Cookies.set('theme', currentTheme);
-
-    console.log('Cookies', Cookies.get('theme'));
   }, [currentTheme]);
 
-  const onClick = async () => {
-    const { data } = await axios.get('/api/hello');
-    console.log(data);
-  };
   return (
     <Layout>
       <Card color='blue'>
@@ -65,7 +58,6 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
               />
             </RadioGroup>
           </FormControl>
-          <Button onClick={() => onClick()}>Solicitud</Button>
         </CardContent>
       </Card>
     </Layout>

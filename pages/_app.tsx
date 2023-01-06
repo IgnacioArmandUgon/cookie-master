@@ -22,8 +22,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const theme: themeType = (Cookies.get('theme') || 'dark') as themeType;
     setTheme(theme);
-    console.log({ theme });
-    console.log(themesMapping[theme]);
   }, []);
 
   return (
@@ -33,15 +31,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     </ThemeProvider>
   );
 }
-
-// MyApp.getInitialProps = async (AppCtx: AppContext) => {
-//   console.log({ AppCtx });
-//   const { theme } = AppCtx.ctx.req //No trae req
-//     ? (AppCtx.ctx.req as any).cookies
-//     : { theme: 'dark' };
-//   const validThemes = ['light', 'dark', 'custom'];
-
-//   return { theme: validThemes.includes(theme) ? theme : 'dark' };
-// };
 
 export default MyApp;

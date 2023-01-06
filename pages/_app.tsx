@@ -5,6 +5,7 @@ import { ThemeProvider } from '@mui/system';
 import { darkTheme, lightTheme, customTheme } from '../themes';
 import { CssBaseline } from '@mui/material';
 import Cookies from 'js-cookie';
+import LanguageProvider from '../context/LanguageContext';
 
 type themeType = 'dark' | 'light' | 'custom';
 
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={themesMapping[theme]}>
       <CssBaseline />
-      <AnyComponent {...pageProps} />
+      <LanguageProvider>
+        <AnyComponent {...pageProps} />
+      </LanguageProvider>
     </ThemeProvider>
   );
 }

@@ -20,47 +20,43 @@ import Cookies from 'js-cookie';
 import { LanguageContext } from '../context/LanguageContext';
 
 interface Props {
-  theme: string;
+  language: string;
 }
 
-const ThemeChangerPage: FC<Props> = ({ theme }) => {
-  const [currentTheme, setCurrentTheme] = useState(theme);
+const LanguageChangerPage: FC<Props> = ({ language }) => {
+  const [currentLanguage, setCurrentLanguage] = useState(language);
   const data = useContext(LanguageContext);
+
   const onThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const theme = e.target.value;
-    setCurrentTheme(theme);
-    localStorage.setItem('theme', theme);
-    Cookies.set('theme', theme);
+    setCurrentLanguage(theme);
+    localStorage.setItem('language', theme);
+    Cookies.set('language', theme);
   };
   useEffect(() => {
-    localStorage.setItem('theme', currentTheme);
-    Cookies.set('theme', currentTheme);
-  }, [currentTheme]);
+    localStorage.setItem('language', currentLanguage);
+    Cookies.set('language', currentLanguage);
+  }, [currentLanguage]);
 
   return (
     <Layout>
       <Card color='blue'>
         <CardContent>
           <FormControl>
-            <FormLabel>{data?.dictionary.THEME}</FormLabel>
+            <FormLabel>{data?.dictionary.LANGUAGE}</FormLabel>
             <RadioGroup
-              value={currentTheme}
+              value={currentLanguage}
               onChange={(e) => onThemeChange(e)}
             >
               <FormControlLabel
-                value={'light'}
+                value={'spanish'}
                 control={<Radio />}
-                label='Light'
+                label={data?.dictionary.SPANISH}
               />
               <FormControlLabel
-                value={'dark'}
+                value={'english'}
                 control={<Radio />}
-                label='Dark'
-              />
-              <FormControlLabel
-                value={'custom'}
-                control={<Radio />}
-                label='Custom'
+                label={data?.dictionary.ENGLISH}
               />
             </RadioGroup>
           </FormControl>
@@ -72,14 +68,14 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
 
 //getServerSideProps convierte el componente de statica a Server side rendering
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { theme = 'dark' } = ctx.req.cookies;
+  const { language = 'english' } = ctx.req.cookies;
 
-  const validThemes = ['light', 'dark', 'custom'];
+  const validLanguage = ['spanish', 'english'];
   return {
     props: {
-      theme: validThemes.includes(theme) ? theme : 'dark',
+      language: validLanguage.includes(language) ? language : 'english',
     },
   };
 };
 
-export default ThemeChangerPage;
+export default LanguageChangerPage;

@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const theme: themeType = (Cookies.get('theme') || 'dark') as themeType;
     setTheme(theme);
-  }, []);
+  }, [theme]);
 
   return (
     <ThemeProvider theme={themesMapping[theme]}>

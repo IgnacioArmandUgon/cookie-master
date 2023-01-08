@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  useState,
-  useEffect,
-  FC,
-  useContext,
-} from 'react';
+import React, { ChangeEvent, useState, FC, useContext } from 'react';
 import { GetServerSideProps } from 'next';
 import {
   Card,
@@ -26,16 +20,12 @@ interface Props {
 const ThemeChangerPage: FC<Props> = ({ theme }) => {
   const [currentTheme, setCurrentTheme] = useState(theme);
   const data = useContext(LanguageContext);
+
   const onThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const theme = e.target.value;
     setCurrentTheme(theme);
-    localStorage.setItem('theme', theme);
     Cookies.set('theme', theme);
   };
-  useEffect(() => {
-    localStorage.setItem('theme', currentTheme);
-    Cookies.set('theme', currentTheme);
-  }, [currentTheme]);
 
   return (
     <Layout>
@@ -44,7 +34,7 @@ const ThemeChangerPage: FC<Props> = ({ theme }) => {
           <FormControl>
             <FormLabel>{data?.dictionary.THEME}</FormLabel>
             <RadioGroup
-              value={currentTheme}
+              value={currentTheme || 'dark'}
               onChange={(e) => onThemeChange(e)}
             >
               <FormControlLabel

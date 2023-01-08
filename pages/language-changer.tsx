@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  useState,
-  useEffect,
-  FC,
-  useContext,
-} from 'react';
+import React, { ChangeEvent, useState, FC, useContext } from 'react';
 import { GetServerSideProps } from 'next';
 import {
   Card,
@@ -27,16 +21,11 @@ const LanguageChangerPage: FC<Props> = ({ language }) => {
   const [currentLanguage, setCurrentLanguage] = useState(language);
   const data = useContext(LanguageContext);
 
-  const onThemeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const theme = e.target.value;
-    setCurrentLanguage(theme);
-    localStorage.setItem('language', theme);
-    Cookies.set('language', theme);
+  const onLanguageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const language = e.target.value;
+    setCurrentLanguage(language);
+    Cookies.set('language', language);
   };
-  useEffect(() => {
-    localStorage.setItem('language', currentLanguage);
-    Cookies.set('language', currentLanguage);
-  }, [currentLanguage]);
 
   return (
     <Layout>
@@ -46,7 +35,7 @@ const LanguageChangerPage: FC<Props> = ({ language }) => {
             <FormLabel>{data?.dictionary.LANGUAGE}</FormLabel>
             <RadioGroup
               value={currentLanguage}
-              onChange={(e) => onThemeChange(e)}
+              onChange={(e) => onLanguageChange(e)}
             >
               <FormControlLabel
                 value={'spanish'}
@@ -66,7 +55,7 @@ const LanguageChangerPage: FC<Props> = ({ language }) => {
   );
 };
 
-//getServerSideProps convierte el componente de statica a Server side rendering
+//getServerSideProps convierte el componente de statico a Server side rendered
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { language = 'english' } = ctx.req.cookies;
 

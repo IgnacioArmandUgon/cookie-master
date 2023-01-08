@@ -13,6 +13,7 @@ export const LanguageContext = React.createContext<contextProps | null>(
   null
 );
 type languageType = 'english' | 'spanish';
+
 const LanguageProvider: FC = ({ children }) => {
   const [language, setLanguage] = useState<languageType>(
     (Cookies.get('language') || 'english') as languageType
